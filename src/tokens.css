@@ -1,97 +1,260 @@
 /* ─────────────────────────────────────────────────────────────────────────
  * KINEA · Design tokens
  *
- * Tailwind v4 @theme directive: defines both CSS custom properties AND
- * generates utility classes (e.g. `bg-kinea-cyan`, `text-surface-card`).
+ * Tailwind v4 @theme directive — define CSS custom properties AND genera
+ * utilities (`bg-kinea-cyan`, `text-fg1`, etc.).
  *
- * NOMENCLATURA
- *   color-{family}-{role}     paleta semántica
- *   color-{family}-{shade}    escalas (50, 100, 200, ...)
- *   font-{role}               familias tipográficas
- *   spacing-{token}           espaciado custom
- *   radius-{token}            border-radius
- *   shadow-{token}            sombras
+ * Convención de nombres (post-handoff Claude Design):
+ *   --kinea-{role}        marca
+ *   --surface-{role}      fondos/superficies
+ *   --border-{role}       bordes
+ *   --fg1..fg4            texto (1=primary, 4=disabled)
+ *   --status-{role}       semántica clínica
+ *   --space-{token}       espaciado
+ *   --text-{token}        tamaños tipográficos
+ *   --radius-{token}      border-radius
+ *   --shadow-{token}      sombras
+ *   --t-{speed}           transiciones
  *
- * Filosofía: nombres semánticos sobre hex literals. Si mañana KINEA cambia
- * de cyan a verde, sólo se toca este archivo.
+ * Aliases retro-compat al final para no romper consumos previos
+ * (`--color-…`, `--text-primary`, `--layout-…`, etc.).
  * ──────────────────────────────────────────────────────────────────────── */
 
 @theme {
   /* ── BRAND ──────────────────────────────────────────────────────────── */
-  --color-kinea-cyan:       #01A3E4;   /* primary — botones, links, brand */
-  --color-kinea-cyan-dark:  #0186b8;   /* hover/active states del primary */
-  --color-kinea-cyan-light: #82c8e3;   /* texto secundario sobre fondo cyan */
+  --color-kinea-cyan:        #01A3E4;
+  --color-kinea-cyan-dark:   #0186b8;
+  --color-kinea-cyan-light:  #82c8e3;
 
-  /* ── SURFACES (AdminLTE 3 dark-mode lineage) ────────────────────────── */
-  --color-surface-page:    #454d55;   /* body background */
-  --color-surface-card:    #343a40;   /* cards / navbar / sidebar header */
-  --color-surface-deep:    #1d2124;   /* sidebar nav / main containers */
-  --color-surface-deeper:  #16191c;   /* hover states sobre deep */
-  --color-surface-elevated:#3b4147;   /* card-header */
-  --color-border-subtle:   #23272b;   /* bordes entre cards */
-  --color-border-strong:   #495057;   /* bordes de inputs */
+  /* ── SURFACES (AdminLTE 3 dark lineage) ─────────────────────────────── */
+  --color-surface-page:      #454d55;   /* body bg */
+  --color-surface-card:      #343a40;   /* cards / navbar / sidebar header */
+  --color-surface-deep:      #1d2124;   /* sidebar nav / containers */
+  --color-surface-deeper:    #16191c;   /* hover sobre surface-deep */
+  --color-surface-elevated:  #3b4147;   /* card-header */
+  --color-surface-tablehead: #2b3035;   /* table thead, inputs, pills */
 
-  /* ── TEXT ───────────────────────────────────────────────────────────── */
-  --color-text-primary:    #e9ecef;
-  --color-text-body:       #c2c7d0;
-  --color-text-muted:      #8e959c;
-  --color-text-disabled:   #6c757d;
-  --color-text-inverse:    #212529;   /* sobre fondos claros (login) */
+  --color-border-subtle:     #23272b;
+  --color-border-strong:     #495057;
 
-  /* ── STATUS (Bootstrap-aligned, expected by usuarios) ───────────────── */
-  --color-status-success: #28a745;
-  --color-status-warning: #ffc107;
-  --color-status-danger:  #dc3545;
-  --color-status-info:    #17a2b8;
+  /* ── TEXT (foreground roles) ────────────────────────────────────────── */
+  --color-fg1:        #e9ecef;   /* primary headings, valores destacados */
+  --color-fg2:        #c2c7d0;   /* default body text */
+  --color-fg3:        #8e959c;   /* labels, muted helper text */
+  --color-fg4:        #6c757d;   /* disabled, em-dash placeholders */
+  --color-fg-on-light:#212529;   /* sobre fondos claros (login) */
 
-  /* Light variants para fondos sutiles de status (alerts, badges) */
+  /* ── STATUS (semántica clínica, Bootstrap-aligned) ──────────────────── */
+  --color-status-success:    #28a745;   /* informe firmado, WSP leído */
+  --color-status-warning:    #ffc107;   /* pendiente */
+  --color-status-danger:     #dc3545;   /* error, fallido, alertas */
+  --color-status-info:       #17a2b8;   /* notificación neutra */
+
   --color-status-success-bg: #1d3324;
   --color-status-warning-bg: #3a3120;
   --color-status-danger-bg:  #3a1d22;
 
   /* ── TIPOGRAFÍA ─────────────────────────────────────────────────────── */
-  --font-sans: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+  --font-sans:  'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:  'Cascadia Code', 'Cascadia Mono', 'Consolas', 'Courier New', monospace;
+  --font-serif: Georgia, 'Times New Roman', serif;  /* sólo informes impresos */
 
-  /* Tamaños (alineados al original, table-dense) */
-  --text-xs:  11px;
-  --text-sm:  12px;
-  --text-base:13px;     /* default body */
-  --text-md:  14px;
-  --text-lg:  16px;
-  --text-xl:  20px;
-  --text-2xl: 24px;
-  --text-3xl: 30px;     /* KPI value */
+  --text-xs:   11px;
+  --text-sm:   12px;
+  --text-base: 13px;     /* default — alta densidad */
+  --text-md:   14px;
+  --text-lg:   16px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  30px;     /* KPI value */
 
-  /* ── ESPACIADO (4-pt grid, denso para densidad de datos clínicos) ───── */
-  --spacing-xs:  4px;
-  --spacing-sm:  6px;
-  --spacing-md:  10px;
-  --spacing-lg:  14px;
-  --spacing-xl:  18px;
-  --spacing-2xl: 24px;
+  --leading-tight:  1.2;
+  --leading-snug:   1.35;
+  --leading-normal: 1.5;
+  --leading-loose:  1.7;
+
+  --tracking-tight:  -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:    0.3px;
+  --tracking-caps:    0.5px;
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semi:   600;
+  --weight-bold:   700;
+
+  /* ── ESPACIADO (4-pt grid + AdminLTE-density excepciones) ───────────── */
+  --space-xs:  4px;
+  --space-sm:  6px;
+  --space-md:  10px;
+  --space-lg:  14px;
+  --space-xl:  18px;
+  --space-2xl: 24px;
+  --space-3xl: 32px;
 
   /* Layout fijo */
-  --layout-navbar-height:   56px;
-  --layout-sidebar-width:   250px;
+  --layout-navbar-h:  56px;
+  --layout-sidebar-w: 250px;
 
-  /* ── BORDER RADIUS ──────────────────────────────────────────────────── */
+  /* ── RADIUS ─────────────────────────────────────────────────────────── */
   --radius-sm:    3px;     /* pills, badges */
   --radius-md:    4px;     /* buttons, cards */
   --radius-lg:    6px;
-  --radius-xl:    10px;    /* login card */
-  --radius-pill:  25px;    /* CTA principal del login */
-  --radius-full:  9999px;  /* avatars, dot indicators */
+  --radius-xl:   10px;     /* login card */
+  --radius-pill: 25px;     /* CTA pill (login) */
+  --radius-full: 9999px;   /* avatars, dot indicators */
 
-  /* ── SHADOW (AdminLTE-style elevations) ─────────────────────────────── */
-  --shadow-card: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
-  --shadow-elevated: 0 4px 12px rgba(0,0,0,.4);
-  --shadow-modal: 0 20px 60px rgba(0,0,0,.45);
+  /* ── SHADOW (sutiles — producto clínico) ────────────────────────────── */
+  --shadow-card:       0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+  --shadow-elevated:   0 4px 12px rgba(0,0,0,.4);
+  --shadow-modal:      0 20px 60px rgba(0,0,0,.45);
   --shadow-focus-cyan: 0 0 0 2px rgba(1,163,228,.25);
-  --shadow-brand: 0 4px 12px rgba(1,163,228,.4);
+  --shadow-brand:      0 4px 12px rgba(1,163,228,.4);
 
   /* ── TRANSITIONS ────────────────────────────────────────────────────── */
-  --transition-fast:   120ms;
-  --transition-normal: 150ms;
-  --transition-slow:   220ms;
+  --t-fast:   120ms;
+  --t-normal: 150ms;
+  --t-slow:   220ms;
+  --ease:     cubic-bezier(.4, 0, .2, 1);
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Aliases bare (sin --color- prefix) — el handoff y todo nuevo código
+ * los usa así. Ej: var(--surface-page), var(--fg1), var(--kinea-cyan).
+ * ──────────────────────────────────────────────────────────────────────── */
+:root {
+  --kinea-cyan:        var(--color-kinea-cyan);
+  --kinea-cyan-dark:   var(--color-kinea-cyan-dark);
+  --kinea-cyan-light:  var(--color-kinea-cyan-light);
+
+  --surface-page:      var(--color-surface-page);
+  --surface-card:      var(--color-surface-card);
+  --surface-deep:      var(--color-surface-deep);
+  --surface-deeper:    var(--color-surface-deeper);
+  --surface-elevated:  var(--color-surface-elevated);
+  --surface-tablehead: var(--color-surface-tablehead);
+
+  --border-subtle:     var(--color-border-subtle);
+  --border-strong:     var(--color-border-strong);
+
+  --fg1:               var(--color-fg1);
+  --fg2:               var(--color-fg2);
+  --fg3:               var(--color-fg3);
+  --fg4:               var(--color-fg4);
+  --fg-on-light:       var(--color-fg-on-light);
+
+  --status-success:    var(--color-status-success);
+  --status-warning:    var(--color-status-warning);
+  --status-danger:     var(--color-status-danger);
+  --status-info:       var(--color-status-info);
+  --status-success-bg: var(--color-status-success-bg);
+  --status-warning-bg: var(--color-status-warning-bg);
+  --status-danger-bg:  var(--color-status-danger-bg);
+
+  /* Aliases del schema viejo (DESIGN_SYSTEM.md inicial) */
+  --text-primary:  var(--fg1);
+  --text-body:     var(--fg2);
+  --text-muted:    var(--fg3);
+  --text-disabled: var(--fg4);
+  --text-inverse:  var(--fg-on-light);
+
+  --color-text-primary:  var(--fg1);
+  --color-text-body:     var(--fg2);
+  --color-text-muted:    var(--fg3);
+  --color-text-disabled: var(--fg4);
+  --color-text-inverse:  var(--fg-on-light);
+
+  --layout-navbar-height: var(--layout-navbar-h);
+  --layout-sidebar-width: var(--layout-sidebar-w);
+
+  --transition-fast:   var(--t-fast);
+  --transition-normal: var(--t-normal);
+  --transition-slow:   var(--t-slow);
+
+  --spacing-xs:  var(--space-xs);
+  --spacing-sm:  var(--space-sm);
+  --spacing-md:  var(--space-md);
+  --spacing-lg:  var(--space-lg);
+  --spacing-xl:  var(--space-xl);
+  --spacing-2xl: var(--space-2xl);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+ * Defaults semánticos globales (h1-h6, p, code, pre, hr, .caps, .mono)
+ * Adoptados del handoff de Claude Design
+ * ──────────────────────────────────────────────────────────────────────── */
+
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--surface-page);
+  color: var(--fg2);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--fg1);
+  font-weight: var(--weight-semi);
+  margin: 0 0 var(--space-md);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+h1 { font-size: var(--text-2xl); }
+h2 { font-size: var(--text-xl); }
+h3 { font-size: var(--text-lg); }
+h4 { font-size: var(--text-md); font-weight: var(--weight-semi); }
+h5 { font-size: var(--text-base); text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--fg3); }
+h6 { font-size: var(--text-xs);   text-transform: uppercase; letter-spacing: var(--tracking-caps); color: var(--fg3); font-weight: var(--weight-bold); }
+
+p { margin: 0 0 var(--space-md); color: var(--fg2); }
+
+small { font-size: var(--text-xs); color: var(--fg3); }
+
+a {
+  color: var(--kinea-cyan);
+  text-decoration: none;
+  transition: color var(--t-fast);
+}
+a:hover { color: var(--kinea-cyan-light); text-decoration: underline; }
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--surface-deep);
+  color: var(--fg1);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--surface-deep);
+  color: var(--fg2);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  border: 1px solid var(--border-subtle);
+}
+pre code { background: transparent; border: 0; padding: 0; }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+  margin: var(--space-xl) 0;
+}
+
+/* Caps label — sidebar headers, KPI labels, form labels */
+.caps {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  color: var(--fg3);
+  font-weight: var(--weight-bold);
+}
+
+.mono { font-family: var(--font-mono); }
+.mono-id { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--fg3); }

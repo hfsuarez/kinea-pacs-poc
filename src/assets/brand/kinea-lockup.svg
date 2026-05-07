@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" width="200" height="56" role="img" aria-label="KINEA · PACS Explorer">
+  <circle cx="28" cy="28" r="22" fill="#01A3E4"></circle>
+  <text x="28" y="36" text-anchor="middle" font-family="&#39;Segoe UI&#39;, system-ui, sans-serif" font-size="24" font-weight="700" fill="#ffffff">K</text>
+  <text x="60" y="26" font-family="&#39;Segoe UI&#39;, system-ui, sans-serif" font-size="20" font-weight="700" fill="#e9ecef" letter-spacing="0.5">KINEA</text>
+  <text x="60" y="42" font-family="&#39;Segoe UI&#39;, system-ui, sans-serif" font-size="10" font-weight="600" fill="#8e959c" letter-spacing="1.5">PACS EXPLORER</text>
+</svg>

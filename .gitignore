@@ -46,3 +46,6 @@ playwright-report
 test-results
 recon-output/*.png
 recon-output/*.mjs
+
+# ── Claude Design handoff (material de referencia, no código) ────
+_handoff/

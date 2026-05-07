@@ -5,6 +5,10 @@
 
 Este documento es la **fuente de verdad para Claude Design** y para cualquier nueva pantalla que se sume al producto. Todo nuevo componente debe consumir tokens — nunca hardcodear hex.
 
+> **Versión 0.2.0** — adopta la nomenclatura de tokens del handoff de Claude Design:
+> `--surface-page` (no `--color-surface-page`), `--fg1..fg4` (no `--color-text-primary`), etc.
+> Los nombres viejos siguen funcionando como aliases en `tokens.css`.
+
 ---
 
 ## 1. Filosofía
