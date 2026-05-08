@@ -16,7 +16,7 @@ import {
   Bell, AlertTriangle, CheckCircle2,
   Eye, BarChart3, FileText, Users, ExternalLink,
 } from 'lucide-react';
-import ChromeShell, { Sidebar, SidebarNav } from '../components/Chrome';
+import ChromeShell, { Sidebar } from '../components/Chrome';
 import type { EstudiosResponse, Estudio } from '../types';
 
 const PHP = import.meta.env.VITE_PHP_BASE || 'http://127.0.0.1:8080';
@@ -114,17 +114,26 @@ export default function DashboardPage() {
   return (
     <ChromeShell user={{ nombre: userName }} current="dashboard">
       <Sidebar>
-        <SidebarNav current="dashboard" />
-        <div className="form-block" style={{ marginTop: 14 }}>
-          <a
-            className="adm-btn"
-            href={`${PHP}/ecos/pacsexplorerwsp/dashboard.php`}
-            target="_blank"
-            rel="noreferrer"
-            style={{ width: '100%' }}
-          >
-            <ExternalLink size={13} /> &nbsp;Dashboard completo
-          </a>
+        <div style={{ padding: 'var(--space-md)' }}>
+          <h6 style={{ margin: '0 0 var(--space-md)' }}>Atajos</h6>
+          <div style={{ display: 'grid', gap: 6 }}>
+            <a
+              className="adm-btn btn-info btn-block"
+              href={`${PHP}/ecos/pacsexplorerwsp/dashboard.php`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ExternalLink size={13} /> &nbsp;Dashboard legado
+            </a>
+            <a
+              className="adm-btn btn-block"
+              href={`${PHP}/ecos/pacsexplorerwsp/historial.php`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ExternalLink size={13} /> &nbsp;Historial
+            </a>
+          </div>
         </div>
       </Sidebar>
 

@@ -86,42 +86,24 @@ interface SidebarProps {
   children: ReactNode;
 }
 
+/**
+ * Sidebar — wrapper con brand link "Pentalogic-style".
+ * El producto es "PACS Explorer", KINEA es la marca corporativa (sutil arriba).
+ * La navegación NO se duplica acá: ya está en la top navbar. El sidebar es
+ * exclusivamente para filtros (worklist) o controles contextuales (study, dashboard).
+ */
 export function Sidebar({ children }: SidebarProps) {
   return (
     <aside className="adm-sidebar">
-      <div className="brand-link">
+      <div className="brand-link brand-pentalogic">
         <div className="brand-img">K</div>
         <div>
-          <div className="brand-text">KINEA</div>
-          <div className="brand-sub">PACS Explorer</div>
+          <div className="brand-text">PACS Explorer</div>
+          <div className="brand-sub">KINEA</div>
         </div>
       </div>
       {children}
     </aside>
-  );
-}
-
-/**
- * SidebarNav — bloque de navegación principal del sidebar (worklist/dashboard/etc.)
- * Reusable en todas las páginas autenticadas para coherencia visual.
- */
-export function SidebarNav({ current }: { current: CurrentRoute }) {
-  return (
-    <>
-      <div className="nav-header">Navegación</div>
-      <NavLink to="/" className={`nav-item ${current === 'worklist' ? 'active' : ''}`}>
-        <Eye size={13} /> &nbsp;Worklist
-      </NavLink>
-      <NavLink to="/dashboard" className={`nav-item ${current === 'dashboard' ? 'active' : ''}`}>
-        <BarChart3 size={13} /> &nbsp;Dashboard
-      </NavLink>
-      <a className="nav-item" href={`${PHP}/ecos/pacsexplorerwsp/informes_edit.php`} target="_blank" rel="noreferrer">
-        <FileText size={13} /> &nbsp;Informes
-      </a>
-      <a className="nav-item" href={`${PHP}/ecos/pacsexplorerwsp/gestionusuario/`} target="_blank" rel="noreferrer">
-        <UserIcon size={13} /> &nbsp;Pacientes
-      </a>
-    </>
   );
 }
 

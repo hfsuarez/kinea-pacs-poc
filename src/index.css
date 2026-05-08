@@ -170,6 +170,95 @@ html, body, #root { height: 100%; margin: 0; }
 }
 .adm-btn.btn-ghost:hover { background: rgba(255,255,255,.06); color: #fff; }
 
+/* Variantes de status para botones (Pentalogic legado tiene btn-success/info/warning grandes en el sidebar) */
+.adm-btn.btn-success { background: var(--status-success); color: #fff; }
+.adm-btn.btn-success:hover { background: #218838; }
+.adm-btn.btn-info { background: var(--kinea-cyan); color: #fff; }
+.adm-btn.btn-info:hover { background: var(--kinea-cyan-dark); }
+.adm-btn.btn-warning { background: var(--status-warning); color: var(--fg-on-light); }
+.adm-btn.btn-warning:hover { background: #e0a800; }
+
+/* Botón "ancho" — usado en sidebar (Hoy/Ayer/Buscar/Limpiar) */
+.adm-btn.btn-block {
+  display: flex; width: 100%;
+  justify-content: center;
+  padding: 9px var(--space-md);
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+
+/* ── Sidebar collapsible items (estilo Pentalogic legado) ───────────────── */
+.adm-sidebar .nav-item-expandable {
+  display: flex; align-items: center;
+  gap: var(--space-md);
+  padding: 10px var(--space-lg);
+  color: var(--fg2);
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  background: transparent;
+  border-top: 0; border-right: 0; border-bottom: 0;
+  width: 100%; text-align: left;
+  font-family: inherit; font-size: var(--text-md);
+  transition: background-color var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+}
+.adm-sidebar .nav-item-expandable:hover {
+  background: var(--surface-deeper);
+  color: #fff;
+  border-left-color: var(--border-strong);
+}
+.adm-sidebar .nav-item-expandable.is-open {
+  background: var(--surface-deeper);
+  color: #fff;
+  border-left-color: var(--kinea-cyan);
+}
+.adm-sidebar .nav-item-expandable .item-icon {
+  display: inline-flex; width: 18px; justify-content: center; color: inherit;
+}
+.adm-sidebar .nav-item-expandable .item-label {
+  flex: 1; line-height: 1;
+}
+.adm-sidebar .nav-item-expandable .item-chevron {
+  display: inline-flex;
+  transition: transform var(--t-normal);
+  color: var(--fg4);
+}
+.adm-sidebar .nav-item-expandable.is-open .item-chevron {
+  transform: rotate(90deg);
+  color: var(--fg2);
+}
+.adm-sidebar .nav-item-expandable .item-badge {
+  background: var(--kinea-cyan);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Panel desplegable debajo de un nav-item-expandable */
+.adm-sidebar .nav-panel {
+  background: rgba(0,0,0,.18);
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Brand link "Pentalogic-style" — más alto, foco en el nombre del producto */
+.adm-sidebar .brand-link.brand-pentalogic {
+  padding: var(--space-md) var(--space-lg);
+  background: var(--surface-card);
+  border-bottom: 1px solid var(--border-subtle);
+  gap: var(--space-md);
+}
+.adm-sidebar .brand-link.brand-pentalogic .brand-img {
+  width: 36px; height: 36px; font-size: var(--text-xl);
+}
+.adm-sidebar .brand-link.brand-pentalogic .brand-text {
+  font-size: var(--text-lg); color: #fff;
+}
+
 /* ── Card / box ─────────────────────────────────────────────────────────── */
 .adm-card {
   background: var(--surface-card);
